@@ -1,0 +1,5 @@
+module.exports = {
+    request: {
+        baseUrl: 'http://localhost:8080/'
+    }
+}

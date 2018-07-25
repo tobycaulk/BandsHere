@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'SteelWorks';
+  src: url('/stylesheets/fonts/steelworks_vintage_demo.woff2') format('woff2'),
+       url('/stylesheets/fonts/steelworks_vintage_demo.woff') format('woff');
+  font-weight:400;
+}
+
+body {
+  background-color: #e5e5e5;
+}
+
+.primary-highlight {
+  color: #1E90FF;
+}
+
+.social-icon {
+  font-size: 350%;
+}
+
+.fa-facebook {
+  color: #3b5998;
+}
+
+.fa-twitter {
+  color: #1da1f2;
+}
+
+.fa-instagram {
+  color: #c32aa3;
+}
+
+.fa-spotify {
+  color: #1ed760;
+}
+
+.elegant-color {
+  background-color: black !important;
+}
+
+#band-description {
+white-space: pre-wrap;       /* Since CSS 2.1 */
+white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+#band-img {
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  height: auto;
+  width: 100%;
+}
+
+#band-name {
+  font-family: 'SteelWorks', 'Source Sans Pro', sans-serif !important;
+  font-size: 250%;
+}
+
+@media (min-width: 576px) { 
+  .social-icon {
+    font-size: 350%;
+  }
+}
+
+@media (min-width: 768px) { 
+  .social-icon {
+    font-size: 500%;
+  }
+}
+
+@media (min-width: 992px) { 
+  .social-icon {
+    font-size: 800%;
+  }
+}
+
+@media (min-width: 1200px) { 
+  .social-icon {
+    font-size: 800%;
+  }
+}
