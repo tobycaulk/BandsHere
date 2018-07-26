@@ -10,8 +10,11 @@ router.get('/', (req, res, next) => {
 router.get('/:username', async (req, res, next) => {
   let username = req.params.username;
   let band = await bandService.get(username);
-  console.log(band);
-  res.render('band', band);
+  console.log(req.cookies);
+  res.render('band', {
+    band: band,
+    authenticated: req.cookies["session"] != null
+  });
 });
 
 module.exports = router;

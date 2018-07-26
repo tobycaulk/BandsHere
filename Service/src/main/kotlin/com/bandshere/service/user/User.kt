@@ -25,6 +25,7 @@ data class User(
         @Column(unique=true)
         var username: String = "",
 
+        @JsonIgnore
         var password: String = "",
 
         @ManyToMany(cascade=[CascadeType.ALL])

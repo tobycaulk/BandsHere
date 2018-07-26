@@ -9,10 +9,15 @@ body {
   background-color: #e5e5e5;
 }
 
+.navbar {
+  padding-right: 16px !important;
+}
+
 .btn {
   border-radius: 10px;
   border: 1px solid #5445b3;
   background-color: #5445b3 !important;
+  padding: .65rem 1rem !important;
 }
 
 .btn-empty {
@@ -41,6 +46,26 @@ body {
 .card-title {
   font-family: 'Lato', sans-serif;
   color: #5445b3;
+}
+
+.modal-title {
+  font-family: 'Lato', sans-serif;
+  color: #5445b3;
+}
+
+label {
+  font-family: 'Lato', sans-serif;
+  font-weight: bolder;
+  color: #5445b3;
+  font-size: 120%;
+}
+
+.modal-footer {
+  border-top: none !important;
+}
+
+.modal-header {
+  border-bottom: none !important;
 }
 
 .social-icon {
