@@ -27,6 +27,10 @@ data class User(
 
         var password: String = "",
 
+        @ManyToMany(cascade=[CascadeType.ALL])
+        @JoinTable(name="user_follows", joinColumns=[JoinColumn(name="user_id", referencedColumnName="id")], inverseJoinColumns=[JoinColumn(name="band_id", referencedColumnName="id")])
+        var follows: List<Band> = listOf(),
+
         @CreatedDate
         @Temporal(TemporalType.TIMESTAMP)
         val creationDate: Date? = null,

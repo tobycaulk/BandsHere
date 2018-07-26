@@ -58,7 +58,11 @@ data class Band(
 
         @OneToOne(cascade=[CascadeType.ALL])
         @JoinColumn(name="user_id")
-        var user: User? = null
+        var user: User? = null,
+
+        @JsonIgnore
+        @ManyToMany(mappedBy="follows")
+        var userFollows: List<User> = listOf()
 )
 
 @Entity
