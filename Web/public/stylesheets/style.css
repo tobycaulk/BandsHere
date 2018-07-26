@@ -9,8 +9,38 @@ body {
   background-color: #e5e5e5;
 }
 
+.btn {
+  border-radius: 10px;
+  border: 1px solid #5445b3;
+  background-color: #5445b3 !important;
+}
+
+.btn-empty {
+  background-color: transparent !important;
+  color: #5445b3 !important;
+}
+
+.navbar-brand {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-family: 'Lato', sans-serif;
+  font-weight: bolder;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
 .primary-highlight {
-  color: #1E90FF;
+  color: #5445b3;
+}
+
+.card-title {
+  font-family: 'Lato', sans-serif;
+  color: #5445b3;
 }
 
 .social-icon {
@@ -33,16 +63,16 @@ body {
   color: #1ed760;
 }
 
-.elegant-color {
-  background-color: black !important;
+.fa-heart {
+  color: #e0245e;
 }
 
 #band-description {
-white-space: pre-wrap;       /* Since CSS 2.1 */
-white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-white-space: -pre-wrap;      /* Opera 4-6 */
-white-space: -o-pre-wrap;    /* Opera 7 */
-word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
   font-family: 'Source Sans Pro', sans-serif !important;
   font-size: 15px;
   font-weight: bolder;
@@ -52,13 +82,18 @@ word-wrap: break-word;       /* Internet Explorer 5.5+ */
   -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
-  height: auto;
-  width: 100%;
+  width: 150px;
+  height: 150px;
+  margin-top: -50px;
 }
 
 #band-name {
-  font-family: 'SteelWorks', 'Source Sans Pro', sans-serif !important;
-  font-size: 250%;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}
+
+#first-card {
+  margin-top: 125px;
 }
 
 @media (min-width: 576px) { 

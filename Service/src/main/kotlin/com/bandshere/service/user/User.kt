@@ -37,5 +37,33 @@ data class User(
 
         @OneToOne(mappedBy="user")
         @JsonIgnore
-        val band: Band? = null
+        val band: Band? = null,
+
+        @JsonIgnore
+        @OneToOne(cascade=[CascadeType.ALL])
+        @JoinColumn(name="user_session_id")
+        var session: UserSession? = null
+)
+
+@Entity
+@Table(name="userSession")
+@EntityListeners(AuditingEntityListener::class)
+data class UserSession(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Int = 0,
+
+        @Column(unique=true)
+        val sessionId: String? = null,
+
+        @CreatedDate
+        @Temporal(TemporalType.TIMESTAMP)
+        val creationDate: Date? = null,
+
+        @LastModifiedDate
+        @Temporal(TemporalType.TIMESTAMP)
+        val modifiedDate: Date? = null,
+
+        @OneToOne(mappedBy="session")
+        var user: User? = null
 )
