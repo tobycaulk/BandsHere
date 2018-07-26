@@ -1,6 +1,8 @@
 package com.bandshere.service.user
 
+import com.bandshere.service.common.InternalServerErrorException
 import com.bandshere.service.common.SessionRequired
+import com.bandshere.service.user.request.AuthenticateUserRequest
 import com.bandshere.service.user.request.CreateUserRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -32,7 +34,18 @@ class UserController(private val userService: UserService) {
 
     @SessionRequired
     @PatchMapping("/{userId}/follow/{bandId}")
-    fun get(@PathVariable("userId") userId: String, @PathVariable("bandId") bandId: String) {
+    fun followBand(@PathVariable("userId") userId: String, @PathVariable("bandId") bandId: String) { }
 
+    @PostMapping("/{userId}/authenticate")
+    fun authenticate(@RequestBody request: AuthenticateUserRequest): ResponseEntity<String?> {
+        val session = userService.authenticate(request)
+        when(session == null) {
+            true -> return ResponseEntity(null, null, HttpStatus.INTERNAL_SERVER_ERROR)
+            false -> {
+                var headers = HttpHeaders()
+                headers["session"] = session?.sessionId
+                return ResponseEntity(HttpStatus.OK.reasonPhrase, headers, HttpStatus.CREATED)
+            }
+        }
     }
 }

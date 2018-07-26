@@ -9,7 +9,7 @@ function getBandUsername() {
 function retrieveFollowerCount(username) {
     $.ajax({
         method: 'GET',
-        url: 'http://69fb615f.ngrok.io/band/' + username + '/followers',
+        url: 'http://587c31eb.ngrok.io/band/' + username + '/followers',
         success: function(data) {
             $('#follower-count').text(data);
         },

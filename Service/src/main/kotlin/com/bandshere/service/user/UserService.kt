@@ -1,5 +1,8 @@
 package com.bandshere.service.user
 
+import com.bandshere.service.common.InvalidRequestException
+import com.bandshere.service.common.ResourceNotFoundException
+import com.bandshere.service.user.request.AuthenticateUserRequest
 import com.bandshere.service.user.request.CreateUserRequest
 import org.mindrot.jbcrypt.BCrypt
 import org.springframework.stereotype.Service
@@ -24,30 +27,37 @@ class UserService(
     fun get(userId: String) = userRepository.findOneByUserId(userId)
 
     fun isValidSession(sessionId: String): Boolean {
-        var session = userSessionRepository.findOneBySessionId(sessionId)
+        val session = userSessionRepository.findOneBySessionId(sessionId)
         session ?: return false
 
         //1 hour session length
-        var sessionLength = (60 * 60) * 1000
+        val sessionLength = (60 * 60) * 1000
 
-        var modifiedDate = session.modifiedDate
+        val modifiedDate = session.modifiedDate
         modifiedDate ?: return false
 
-        var timeLapsed = Date().time - modifiedDate.time
+        val timeLapsed = Date().time - modifiedDate.time
 
         return timeLapsed < sessionLength
     }
 
     fun createSession(userId: String): UserSession? {
-        var user = userRepository.findOneByUserId(userId)
-        user ?: return null
+        val user = userRepository.findOneByUserId(userId)
+        user ?: throw InvalidRequestException()
 
-        var userSession = user.session
-        userSession ?: return null
+        when(user.session == null) {
+            true -> {
+                user.session = UserSession(sessionId = UUID.randomUUID().toString())
+                userRepository.save(user)
+            }
 
-        userSessionRepository.removeBySessionId(userSession.sessionId)
-        user.session = UserSession(sessionId = UUID.randomUUID().toString())
-        userRepository.save(user)
+            false -> {
+                if(user.session?.sessionId != null && !isValidSession(user.session!!.sessionId)) {
+                    user.session = UserSession(sessionId = UUID.randomUUID().toString())
+                    userRepository.save(user)
+                }
+            }
+        }
 
         return user.session
     }
@@ -58,5 +68,24 @@ class UserService(
             session.modifiedDate = modifiedDate
             userSessionRepository.save(session)
         }
+    }
+
+    fun authenticate(request: AuthenticateUserRequest): UserSession? {
+        if(request.username.isBlank() || request.password.isBlank()) {
+            throw InvalidRequestException()
+        }
+
+        val username = request.username.trim()
+        val password = request.password.trim()
+
+        val user = userRepository.findOneByUsername(username)
+        user ?: throw ResourceNotFoundException()
+
+        val storedPassword = user.password
+        if(!BCrypt.checkpw(password, storedPassword)) {
+            throw InvalidRequestException()
+        }
+
+        return createSession(user.userId)
     }
 }
