@@ -28,12 +28,12 @@ class UserService(
         session ?: return false
 
         //1 hour session length
-        var sessionLength = (60 * 60) * 1000
+        var sessionLength = (30) * 1000
 
         var modifiedDate = session.modifiedDate
         modifiedDate ?: return false
 
-        var timeLapsed = modifiedDate.time - Date().time
+        var timeLapsed = Date().time - modifiedDate.time
 
         return timeLapsed < sessionLength
     }
