@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
+@CrossOrigin(origins=["*"], maxAge=3600)
 @RestController
 @RequestMapping("/band")
 class BandController(private val bandService: BandService) {
@@ -18,4 +19,7 @@ class BandController(private val bandService: BandService) {
     @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.OK)
     fun get(@PathVariable("username") username: String): Band? = bandService.get(username)
+
+    @GetMapping("/{username}/followers")
+    fun getFollowerCount(@PathVariable("username") username: String): Int = bandService.getFollowerCount(username)
 }

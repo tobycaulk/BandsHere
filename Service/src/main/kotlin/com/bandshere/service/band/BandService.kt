@@ -1,6 +1,8 @@
 package com.bandshere.service.band
 
 import com.bandshere.service.band.request.CreateBandRequest
+import com.bandshere.service.common.InternalServerErrorException
+import com.bandshere.service.user.UserFollowsRepository
 import com.bandshere.service.user.UserRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -9,7 +11,8 @@ import java.util.*
 class BandService(
         private val bandRepository: BandRepository,
         private val userRepository: UserRepository,
-        private val bandInfoRepository: BandInfoRepository
+        private val bandInfoRepository: BandInfoRepository,
+        private val userFollowsRepository: UserFollowsRepository
 ) {
     fun create(request: CreateBandRequest): Band? {
         var user = userRepository.findOneByEmail(request.userEmail)
@@ -23,7 +26,7 @@ class BandService(
                     youtubeComponent = request.youtubeComponent,
                     socialComponents = request.socialComponents))
         } else {
-            throw Exception("User email not registered ${request.userEmail}")
+            throw InternalServerErrorException("Email not registered ${request.userEmail}")
         }
     }
 
@@ -32,7 +35,13 @@ class BandService(
         if(bandInfo != null) {
             return bandInfo.band!!
         } else {
-            throw Exception("Band username not registered $username")
+            throw InternalServerErrorException("Username not registered $username")
         }
+    }
+
+    fun getFollowerCount(username: String): Int {
+        val band = bandInfoRepository.findOneByUsername(username)
+        band ?: throw InternalServerErrorException("Band name not registered $username")
+        return userFollowsRepository.getFollowerCountByBandId(band.id)
     }
 }
