@@ -25,21 +25,38 @@ class UserService(
 
     fun isValidSession(sessionId: String): Boolean {
         var session = userSessionRepository.findOneBySessionId(sessionId)
-        if(session == null) {
-            return false
-        }
+        session ?: return false
 
         //1 hour session length
         var sessionLength = (60 * 60) * 1000
 
-        var creationDate = session.creationDate
         var modifiedDate = session.modifiedDate
-        if(creationDate == null || modifiedDate == null) {
-            return false
-        }
+        modifiedDate ?: return false
 
-        var timeLapsed = modifiedDate.time - creationDate.time
+        var timeLapsed = modifiedDate.time - Date().time
 
         return timeLapsed < sessionLength
+    }
+
+    fun createSession(userId: String): UserSession? {
+        var user = userRepository.findOneByUserId(userId)
+        user ?: return null
+
+        var userSession = user.session
+        userSession ?: return null
+
+        userSessionRepository.removeBySessionId(userSession.sessionId)
+        user.session = UserSession(sessionId = UUID.randomUUID().toString())
+        userRepository.save(user)
+
+        return user.session
+    }
+
+    fun updateSessionModifiedDate(modifiedDate: Date, sessionId: String) {
+        var session = userSessionRepository.findOneBySessionId(sessionId)
+        if(session != null) {
+            session.modifiedDate = modifiedDate
+            userSessionRepository.save(session)
+        }
     }
 }

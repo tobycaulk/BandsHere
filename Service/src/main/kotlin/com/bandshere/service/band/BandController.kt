@@ -1,6 +1,7 @@
 package com.bandshere.service.band
 
 import com.bandshere.service.band.request.CreateBandRequest
+import com.bandshere.service.common.SessionRequired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -9,6 +10,7 @@ import javax.validation.Valid
 @RequestMapping("/band")
 class BandController(private val bandService: BandService) {
 
+    @SessionRequired
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody request: CreateBandRequest): Band? = bandService.create(request)

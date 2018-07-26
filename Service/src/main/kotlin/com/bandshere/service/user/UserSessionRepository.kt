@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface UserSessionRepository : CrudRepository<UserSession, Int> {
     fun findOneBySessionId(sessionId: String): UserSession?
+    fun removeBySessionId(sessionId: String)
 }

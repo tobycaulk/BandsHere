@@ -1,6 +1,6 @@
 package com.bandshere.service.user
 
-import com.bandshere.service.common.BaseController
+import com.bandshere.service.common.SessionRequired
 import com.bandshere.service.user.request.CreateUserRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -10,25 +10,28 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/user")
-class UserController(userService: UserService) : BaseController(userService) {
+class UserController(private val userService: UserService) {
 
     @PostMapping("/")
     fun create(@Valid @RequestBody request: CreateUserRequest): ResponseEntity<User?> {
-        var user: User? = userService.create(request)
-        if(user != null) {
-            var headers = HttpHeaders()
-            if(user.session != null) {
-                var session = user.session!!
-                headers.set("session", session.sessionId)
+        val user: User? = userService.create(request)
+        when(user == null) {
+            true -> return ResponseEntity(null, null, HttpStatus.INTERNAL_SERVER_ERROR)
+            false -> {
+                var headers = HttpHeaders()
+                headers["session"] = user?.session?.sessionId
+                return ResponseEntity(user, headers, HttpStatus.CREATED)
             }
-
-            return ResponseEntity(user, headers, HttpStatus.CREATED)
-        } else {
-            return ResponseEntity(null, null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
+    @SessionRequired
     @GetMapping("/{userId}")
-    @ResponseStatus(HttpStatus.OK)
     fun get(@PathVariable("userId") userId: String) = userService.get(userId)
+
+    @SessionRequired
+    @PatchMapping("/{userId}/follow/{bandId}")
+    fun get(@PathVariable("userId") userId: String, @PathVariable("bandId") bandId: String) {
+
+    }
 }

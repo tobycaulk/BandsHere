@@ -54,7 +54,7 @@ data class Band(
 
         @LastModifiedDate
         @Temporal(TemporalType.TIMESTAMP)
-        val modifiedDate: Date? = null,
+        var modifiedDate: Date? = null,
 
         @OneToOne(cascade=[CascadeType.ALL])
         @JoinColumn(name="user_id")

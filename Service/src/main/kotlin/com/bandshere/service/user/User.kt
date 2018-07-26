@@ -37,7 +37,7 @@ data class User(
 
         @LastModifiedDate
         @Temporal(TemporalType.TIMESTAMP)
-        val modifiedDate: Date? = null,
+        var modifiedDate: Date? = null,
 
         @OneToOne(mappedBy="user")
         @JsonIgnore
@@ -58,7 +58,7 @@ data class UserSession(
         val id: Int = 0,
 
         @Column(unique=true)
-        val sessionId: String? = null,
+        val sessionId: String = "",
 
         @CreatedDate
         @Temporal(TemporalType.TIMESTAMP)
@@ -66,7 +66,7 @@ data class UserSession(
 
         @LastModifiedDate
         @Temporal(TemporalType.TIMESTAMP)
-        val modifiedDate: Date? = null,
+        var modifiedDate: Date? = null,
 
         @OneToOne(mappedBy="session")
         var user: User? = null
