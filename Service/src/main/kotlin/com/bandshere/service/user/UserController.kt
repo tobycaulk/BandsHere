@@ -1,6 +1,5 @@
 package com.bandshere.service.user
 
-import com.bandshere.service.common.InternalServerErrorException
 import com.bandshere.service.common.SessionRequired
 import com.bandshere.service.user.request.AuthenticateUserRequest
 import com.bandshere.service.user.request.CreateUserRequest
@@ -48,4 +47,8 @@ class UserController(private val userService: UserService) {
             }
         }
     }
+
+    @DeleteMapping("/session/{sessionId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun signout(@PathVariable("sessionId") sessionId: String) = userService.signout(sessionId)
 }

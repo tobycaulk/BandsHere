@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('#register-btn').click(handleRegister);
+    $('#signout').click(handleSignout);
 });
 
 function handleRegister() {
@@ -26,4 +27,8 @@ function handleRegister() {
             }, 5000);
         }
     })
+}
+
+function handleSignout() {
+    
 }

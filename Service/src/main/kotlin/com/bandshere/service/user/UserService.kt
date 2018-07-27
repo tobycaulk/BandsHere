@@ -101,4 +101,18 @@ class UserService(
 
         return createSession(user.userId)
     }
+
+    fun signout(sessionId: String) {
+        val session = userSessionRepository.findOneBySessionId(sessionId)
+        session ?: throw InternalServerErrorException()
+
+        val user = session.user
+        user ?: throw InternalServerErrorException()
+
+        user.session = null
+        userRepository.save(user)
+
+        userSessionRepository.save(session)
+        userSessionRepository.delete(session)
+    }
 }

@@ -17,7 +17,17 @@ router.post('/', async (req, res, next) => {
       res.send(data.user);
     }
   } catch(err) {
+    console.log("Error in users controller [" + err + "]");
     res.status(500);
+  }
+});
+
+router.delete('/session', async (req, res, next) => {
+  let sessionId = req.cookies["session"];
+  if(sessionId) {
+    res.clearCookie("session");
+  } else {
+    res.status(200);
   }
 });
 

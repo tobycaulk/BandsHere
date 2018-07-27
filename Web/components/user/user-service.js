@@ -24,6 +24,11 @@ async function create(email, username, password) {
     }
 }
 
+async function signout(sessionId) {
+
+}
+
 module.exports = {
-    create: create
+    create: create,
+    signout: signout
 };

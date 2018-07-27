@@ -44,7 +44,7 @@ data class User(
         val band: Band? = null,
 
         @JsonIgnore
-        @OneToOne(cascade=[CascadeType.ALL])
+        @OneToOne(cascade=[CascadeType.PERSIST])
         @JoinColumn(name="user_session_id")
         var session: UserSession? = null
 )
