@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.ResponseStatus
 class InternalServerErrorException : Exception {
     constructor(message: String) : super(message)
     constructor() : super("Internal server error")
+    constructor(message: String, t: Throwable) : super(message, t)
 }

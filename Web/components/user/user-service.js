@@ -7,12 +7,19 @@ async function create(email, username, password) {
             username: username,
             password: password
         });
-        return {
-            user: res.body,
-            session: res.res.headers.session
-        };
+
+        if(res.body.status && res.body.status == 409) {
+            return { error: "Sorry, that email is already registered! Please try another one." }
+        } else  if(res.body.status && res.body.status != 200) {
+            return { error: res.body.message }
+            throw Error(res.body.message);
+        } else {
+            return {
+                user: res.body,
+                session: res.res.headers.session
+            };
+        }
     } catch(err) {
-        console.log(err);
         throw Error(err);
     }
 }

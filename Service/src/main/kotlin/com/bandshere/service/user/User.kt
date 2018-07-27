@@ -22,7 +22,6 @@ data class User(
         @Column(unique=true)
         var email: String = "",
 
-        @Column(unique=true)
         var username: String = "",
 
         @JsonIgnore

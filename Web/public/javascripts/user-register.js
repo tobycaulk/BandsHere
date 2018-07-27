@@ -16,7 +16,14 @@ function handleRegister() {
             password: password
         },
         success: function(data) {
-            console.log(data);
+            location.reload();
+        },
+        error: function(data) {
+            $('#registerAlert').addClass('show');
+            $('#registerAlertText').text(data.responseText);
+            setTimeout(function() {
+                $('#registerAlert').alert('close')
+            }, 5000);
         }
     })
 }

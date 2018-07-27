@@ -1,10 +1,14 @@
 package com.bandshere.service.user
 
+import com.bandshere.service.common.EmailAlreadyRegisteredException
+import com.bandshere.service.common.InternalServerErrorException
 import com.bandshere.service.common.InvalidRequestException
 import com.bandshere.service.common.ResourceNotFoundException
 import com.bandshere.service.user.request.AuthenticateUserRequest
 import com.bandshere.service.user.request.CreateUserRequest
 import org.mindrot.jbcrypt.BCrypt
+import org.postgresql.util.PSQLException
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -15,13 +19,22 @@ class UserService(
 ) {
 
     fun create(request: CreateUserRequest): User? {
-        return userRepository.save(User(
-                userId = UUID.randomUUID().toString(),
-                email = request.email,
-                username = request.username,
-                password = BCrypt.hashpw(request.password, BCrypt.gensalt()),
-                session = UserSession(sessionId = UUID.randomUUID().toString())
-        ))
+        val user: User?
+        try {
+            user = userRepository.save(User(
+                    userId = UUID.randomUUID().toString(),
+                    email = request.email,
+                    username = request.username,
+                    password = BCrypt.hashpw(request.password, BCrypt.gensalt()),
+                    session = UserSession(sessionId = UUID.randomUUID().toString())
+            ))
+        } catch(e: DataIntegrityViolationException) {
+            throw EmailAlreadyRegisteredException()
+        } catch(e: Exception) {
+            throw InternalServerErrorException("Error while registering user", e)
+        }
+
+        return user
     }
 
     fun get(userId: String) = userRepository.findOneByUserId(userId)
