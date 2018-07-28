@@ -35,15 +35,15 @@ class UserController(private val userService: UserService) {
     @PatchMapping("/{userId}/follow/{bandId}")
     fun followBand(@PathVariable("userId") userId: String, @PathVariable("bandId") bandId: String) { }
 
-    @PostMapping("/{userId}/authenticate")
-    fun authenticate(@RequestBody request: AuthenticateUserRequest): ResponseEntity<String?> {
+    @PostMapping("/authenticate")
+    fun authenticate(@RequestBody request: AuthenticateUserRequest): ResponseEntity<Any?> {
         val session = userService.authenticate(request)
         when(session == null) {
             true -> return ResponseEntity(null, null, HttpStatus.INTERNAL_SERVER_ERROR)
             false -> {
                 var headers = HttpHeaders()
                 headers["session"] = session?.sessionId
-                return ResponseEntity(HttpStatus.OK.reasonPhrase, headers, HttpStatus.CREATED)
+                return ResponseEntity(null, headers, HttpStatus.CREATED)
             }
         }
     }

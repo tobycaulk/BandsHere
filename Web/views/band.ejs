@@ -48,15 +48,16 @@
 					<form class="p5">
 						<div class="row justify-content-center">
 							<div class="col-8">
-								<p>Sign up to save your favorite bands.<br/><br/>If you're band, create your own page to make it easier than ever for fans to discover you.</p>
+								<p>Sign up to save your favorite bands.<br/><br/>If you're in a band, create your own page to make it easier than ever for fans to discover you.</p>
+								<p>Already have an account? <a id="signInLink" class="pretty-link">Sign In</a></p>
 								<label for="registerEmail">Email</label>
 								<input type="email" id="registerEmail" class="form-control mb-4" placeholder="Email" required>
-								<label for="registerUsername">Username</label>
-								<input type="text" id="registerUsername" class="form-control mb-4" placeholder="Username" required>
+								<label for="registerUsername" class="register">Username</label>
+								<input type="text" id="registerUsername" class="form-control mb-4 register" placeholder="Username" required>
 								<label for="registerPassword">Password</label>
 								<input type="password" id="registerPassword" class="form-control mb-4" placeholder="Password" required>
-								<div class="d-flex justify-content-start">
-									<div class="custom-control custom-checkbox">
+								<div class="d-flex justify-content-start register">
+									<div class="custom-control custom-checkbox register">
 										<input type="checkbox" class="custom-control-input" id="registerCreateBandPage">
 										<label class="custom-control-label" for="registerCreateBandPage">Create a band page</label>
 									</div>

@@ -84,14 +84,14 @@ class UserService(
     }
 
     fun authenticate(request: AuthenticateUserRequest): UserSession? {
-        if(request.username.isBlank() || request.password.isBlank()) {
+        if(request.email.isBlank() || request.password.isBlank()) {
             throw InvalidRequestException()
         }
 
-        val username = request.username.trim()
+        val email = request.email.trim()
         val password = request.password.trim()
 
-        val user = userRepository.findOneByUsername(username)
+        val user = userRepository.findOneByEmail(email)
         user ?: throw ResourceNotFoundException()
 
         val storedPassword = user.password

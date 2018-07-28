@@ -1,6 +1,6 @@
 package com.bandshere.service.user.request
 
 data class AuthenticateUserRequest(
-        val username: String = "",
+        val email: String = "",
         val password: String = ""
 )

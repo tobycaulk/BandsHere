@@ -106,6 +106,23 @@ label {
   color: #e0245e;
 }
 
+.modal a {
+  color: #007bff !important;
+  text-decoration: underline !important;
+}
+
+.modal a:hover {
+  color: black !important;
+}
+
+.modal a:visited {
+  color: #007bff !important;
+}
+
+.modal a:focus {
+  color: #007bff !important;
+}
+
 #band-description {
   white-space: pre-wrap;       /* Since CSS 2.1 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
