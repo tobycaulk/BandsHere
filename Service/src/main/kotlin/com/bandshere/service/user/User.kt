@@ -29,6 +29,7 @@ data class User(
 
         @ManyToMany(cascade=[CascadeType.ALL])
         @JoinTable(name="user_follows", joinColumns=[JoinColumn(name="user_id", referencedColumnName="id")], inverseJoinColumns=[JoinColumn(name="band_id", referencedColumnName="id")])
+        @JsonIgnore
         var follows: MutableList<Band> = mutableListOf(),
 
         @CreatedDate
