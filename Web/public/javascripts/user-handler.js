@@ -9,6 +9,8 @@ $(document).ready(function() {
     $('#signInLink').click(handleSignInFlip);
     $('#followBand').click(handleFollowBand);
 
+    checkIfIsFollowingBand();
+
     $('#registerModal').on("show", function() {
         $("body").addClass("modal-open");
     }).on("hidden", function() {
@@ -114,6 +116,27 @@ function handleFollowBand() {
             setTimeout(function() {
                 $('#followAlert').hide();
             }, 5000);
+        }
+    })
+}
+
+function checkIfIsFollowingBand() {
+    var bandUsername = $('#band-username').val();
+
+    $.ajax({
+        method: 'GET',
+        url: '/user/followBand?username=' + bandUsername,
+        success: function(following) {
+            if(following) {
+                $('#followBand').removeClass('btn-empty');
+                $('#follow-text').text('Unfollow');
+            } else {
+                $('#followBand').addClass('btn-empty');
+                $('#follow-text').text('Follow');
+            }
+        },
+        error: function(data) {
+            console.log('Error while checking if user is following this band [' + JSON.stringify(data) + ']');
         }
     })
 }

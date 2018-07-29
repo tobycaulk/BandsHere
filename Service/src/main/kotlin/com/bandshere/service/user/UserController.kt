@@ -49,6 +49,11 @@ class UserController(private val userService: UserService) {
         }
     }
 
+    @SessionRequired
+    @GetMapping("/{sessionId}/follow/{bandUsername}")
+    @ResponseStatus(HttpStatus.OK)
+    fun isFollowing(@PathVariable("sessionId") sessionId: String, @PathVariable("bandUsername") bandUsername: String) = userService.isFollowingBand(sessionId, bandUsername)
+
     @DeleteMapping("/session/{sessionId}")
     @ResponseStatus(HttpStatus.OK)
     fun signout(@PathVariable("sessionId") sessionId: String) = userService.signout(sessionId)

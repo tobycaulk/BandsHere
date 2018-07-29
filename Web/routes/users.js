@@ -21,7 +21,6 @@ router.post('/', async (req, res, next) => {
 router.post('/authenticate', async (req, res, next) => {
   try {
     let data = await userService.authenticate(req.body.email, req.body.password);
-    console.log(data);
     if(data.error) {
       res.status(500).send(data.error);
     } else {
@@ -63,7 +62,24 @@ router.post('/followBand/', async (req, res, next) => {
       res.status(500).send('Please login or create an account to follow this band!');
     }
   } catch(err) {
-    //console.log(`Error in user controller [${err}]`);
+    console.log(`Error in user controller [${err}]`);
+    res.status(500).send('Uh-oh, something went wrong, please try again!');
+  }
+});
+
+router.get('/followBand/', async (req, res, next) => {
+  try {
+    let sessionId = req.cookies["session"];
+    if(sessionId) {
+      let data = await userService.isFollowingBand(sessionId, req.query.username);
+      if(data.error) {
+        res.status(500).send(data.error);
+      } else {
+        res.send(data);
+      }
+    }
+  } catch(err) {
+    console.log(`Error in user controller [${err}]`);
     res.status(500).send('Uh-oh, something went wrong, please try again!');
   }
 });

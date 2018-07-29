@@ -150,4 +150,24 @@ class UserService(
 
         return following
     }
+
+    fun isFollowingBand(sessionId: String, bandUsername: String): Boolean {
+        if(sessionId.isBlank() || bandUsername.isBlank()) {
+            throw InvalidRequestException()
+        }
+
+        val session = userSessionRepository.findOneBySessionId(sessionId)
+        session ?: throw InvalidRequestException()
+
+        val user = session.user
+        user ?: throw InternalServerErrorException()
+
+        val bandInfo = bandInfoRepository.findOneByUsername(bandUsername)
+        bandInfo ?: throw InternalServerErrorException()
+
+        val band = bandInfo.band
+        band ?: throw InternalServerErrorException()
+
+        return user.follows.contains(band)
+    }
 }
