@@ -97,8 +97,13 @@ function handleFollowBand() {
         data: {
             username: bandUsername
         },
-        success: function(data) {
-            console.log('Success ' + data);
+        success: function(following) {
+            retrieveFollowerCount(bandUsername);
+            if(following) {
+                $('#followBand').removeClass('btn-empty');
+            } else {
+                $('#followBand').addClass('btn-empty');
+            }
         },
         error: function(data) {
             $('#followAlert').show();

@@ -23,6 +23,7 @@ body {
   border: 1px solid #5445b3;
   background-color: #5445b3 !important;
   padding: .65rem 1rem !important;
+  color: white !important;
 }
 
 .btn-empty {
