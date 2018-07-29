@@ -40,11 +40,25 @@ async function authenticate(email, password) {
 
 async function signout(sessionId) {
     try {
-        let res = await request.del(`/session/${sessionId}`)
+        let res = await request.del(`/user/session/${sessionId}`);
         if(res.body.status && res.body.status != 200) {
-            return { error: 'Internal service error' };
+            return { error: 'Uh-oh, something went wrong, please try again!' };
         } else {
             return;
+        }
+    } catch(err) {
+        throw Error(err);
+    }
+}
+
+async function followBand(sessionId, bandUsername) {
+    try {
+        request.headers["session"] = sessionId;
+        let res = await request.patch(`/user/${sessionId}/follow/${bandUsername}`);
+        if(res.body.status && res.body.status != 200) {
+            return { error: 'Uh-oh, something went wrong, please try again!' };
+        } else {
+            return res.body;
         }
     } catch(err) {
         throw Error(err);
@@ -54,5 +68,6 @@ async function signout(sessionId) {
 module.exports = {
     create: create,
     signout: signout,
-    authenticate: authenticate
+    authenticate: authenticate,
+    followBand: followBand
 };

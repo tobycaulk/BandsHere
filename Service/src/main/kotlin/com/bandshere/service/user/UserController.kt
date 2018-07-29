@@ -32,8 +32,9 @@ class UserController(private val userService: UserService) {
     fun get(@PathVariable("userId") userId: String) = userService.get(userId)
 
     @SessionRequired
-    @PatchMapping("/{userId}/follow/{bandId}")
-    fun followBand(@PathVariable("userId") userId: String, @PathVariable("bandId") bandId: String) { }
+    @PatchMapping("/{sessionId}/follow/{bandUsername}")
+    @ResponseStatus(HttpStatus.OK)
+    fun followBand(@PathVariable("sessionId") sessionId: String, @PathVariable("bandUsername") bandUsername: String) = userService.followBand(sessionId, bandUsername)
 
     @PostMapping("/authenticate")
     fun authenticate(@RequestBody request: AuthenticateUserRequest): ResponseEntity<Any?> {

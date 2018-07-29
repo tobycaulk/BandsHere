@@ -7,6 +7,7 @@ $(document).ready(function() {
     $('#register-btn').click(handleRegisterClick);
     $('#signout').click(handleSignout);
     $('#signInLink').click(handleSignInFlip);
+    $('#followBand').click(handleFollowBand);
 
     $('#registerModal').on("show", function() {
         $("body").addClass("modal-open");
@@ -40,10 +41,11 @@ function handleRegister() {
             location.reload();
         },
         error: function(data) {
-            $('#registerAlert').addClass('show');
+            $('#registerAlert').show();
+            $('#followAlert').addClass('show');
             $('#registerAlertText').text(data.responseText);
             setTimeout(function() {
-                $('#registerAlert').alert('close')
+                $('#registerAlert').hide();
             }, 5000);
         }
     });
@@ -64,10 +66,10 @@ function handleSignIn() {
             location.reload();
         },
         error: function(data) {
-            $('#registerAlert').addClass('show');
+            $('#registerAlert').show();
             $('#registerAlertText').text(data.responseText);
             setTimeout(function() {
-                $('#registerAlert').alert('close')
+                $('#registerAlert').hide();
             }, 5000);
         }
     });
@@ -81,10 +83,32 @@ function handleSignout() {
             location.reload();
         },
         error: function(data) {
-            console.log(data);
             location.reload();
         }
     });
+}
+
+function handleFollowBand() {
+    var bandUsername = $('#band-username').val();
+
+    $.ajax({
+        method: 'POST',
+        url: '/user/followBand/',
+        data: {
+            username: bandUsername
+        },
+        success: function(data) {
+            console.log('Success ' + data);
+        },
+        error: function(data) {
+            $('#followAlert').show();
+            $('#followAlert').addClass('show');
+            $('#followAlertText').text(data.responseText);
+            setTimeout(function() {
+                $('#followAlert').hide();
+            }, 5000);
+        }
+    })
 }
 
 function handleSignInFlip() {

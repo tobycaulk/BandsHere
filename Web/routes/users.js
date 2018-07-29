@@ -49,4 +49,23 @@ router.delete('/session', async (req, res, next) => {
   }
 });
 
+router.post('/followBand/', async (req, res, next) => {
+  try {
+    let sessionId = req.cookies["session"];
+    if(sessionId) {
+      let data = await userService.followBand(sessionId, req.body.username);
+      if(data.error) {
+        res.status(500).send(data.error);
+      } else {
+        res.send(data);
+      }
+    } else {
+      res.status(500).send('Please login or create an account to follow this band!');
+    }
+  } catch(err) {
+    //console.log(`Error in user controller [${err}]`);
+    res.status(500).send('Uh-oh, something went wrong, please try again!');
+  }
+});
+
 module.exports = router;

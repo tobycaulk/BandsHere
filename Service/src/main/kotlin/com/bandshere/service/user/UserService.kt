@@ -1,5 +1,7 @@
 package com.bandshere.service.user
 
+import com.bandshere.service.band.BandInfoRepository
+import com.bandshere.service.band.BandRepository
 import com.bandshere.service.common.EmailAlreadyRegisteredException
 import com.bandshere.service.common.InternalServerErrorException
 import com.bandshere.service.common.InvalidRequestException
@@ -7,7 +9,6 @@ import com.bandshere.service.common.ResourceNotFoundException
 import com.bandshere.service.user.request.AuthenticateUserRequest
 import com.bandshere.service.user.request.CreateUserRequest
 import org.mindrot.jbcrypt.BCrypt
-import org.postgresql.util.PSQLException
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import java.util.*
@@ -15,7 +16,9 @@ import java.util.*
 @Service
 class UserService(
         private val userRepository: UserRepository,
-        private val userSessionRepository: UserSessionRepository
+        private val userSessionRepository: UserSessionRepository,
+        private val bandInfoRepository: BandInfoRepository,
+        private val userFollowsRepository: UserFollowsRepository
 ) {
 
     fun create(request: CreateUserRequest): User? {
@@ -114,5 +117,37 @@ class UserService(
 
         userSessionRepository.save(session)
         userSessionRepository.delete(session)
+    }
+
+    //True - user is now following band
+    //False - user is no longer following band
+    //Should refactor later
+    fun followBand(sessionId: String, bandUsername: String): Boolean {
+        if(sessionId.isBlank() || bandUsername.isBlank()) {
+            throw InvalidRequestException()
+        }
+
+        val session = userSessionRepository.findOneBySessionId(sessionId)
+        session ?: throw InvalidRequestException()
+
+        val user = session.user
+        user ?: throw InternalServerErrorException()
+
+        val bandInfo = bandInfoRepository.findOneByUsername(bandUsername)
+        bandInfo ?: throw InternalServerErrorException()
+
+        val band = bandInfo.band
+        band ?: throw InternalServerErrorException()
+
+        var following: Boolean
+        if(user.follows.contains(band)) {
+            following = false
+            userFollowsRepository.removeFollow(user.id, band.id)
+        } else {
+            following = true
+            userFollowsRepository.saveFollow(user.id, band.id)
+        }
+
+        return following
     }
 }

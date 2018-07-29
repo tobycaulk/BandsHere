@@ -29,7 +29,7 @@ data class User(
 
         @ManyToMany(cascade=[CascadeType.ALL])
         @JoinTable(name="user_follows", joinColumns=[JoinColumn(name="user_id", referencedColumnName="id")], inverseJoinColumns=[JoinColumn(name="band_id", referencedColumnName="id")])
-        var follows: List<Band> = listOf(),
+        var follows: MutableList<Band> = mutableListOf(),
 
         @CreatedDate
         @Temporal(TemporalType.TIMESTAMP)

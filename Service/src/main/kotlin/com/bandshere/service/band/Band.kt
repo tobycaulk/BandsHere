@@ -62,7 +62,7 @@ data class Band(
 
         @JsonIgnore
         @ManyToMany(mappedBy="follows")
-        var userFollows: List<User> = listOf()
+        var userFollows: MutableList<User> = mutableListOf()
 )
 
 @Entity
