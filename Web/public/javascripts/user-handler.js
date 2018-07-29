@@ -101,8 +101,10 @@ function handleFollowBand() {
             retrieveFollowerCount(bandUsername);
             if(following) {
                 $('#followBand').removeClass('btn-empty');
+                $('#follow-text').text('Unfollow');
             } else {
                 $('#followBand').addClass('btn-empty');
+                $('#follow-text').text('Follow');
             }
         },
         error: function(data) {
