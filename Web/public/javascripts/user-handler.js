@@ -30,6 +30,7 @@ function handleRegister() {
     var email = $('#registerEmail').val();
     var username =  $('#registerUsername').val();
     var password = $('#registerPassword').val();
+    var registerBandPage = $('#registerCreateBandPage').is(":checked");
 
     $.ajax({
         method: 'POST',
@@ -40,7 +41,11 @@ function handleRegister() {
             password: password
         },
         success: function(data) {
-            location.reload();
+            if(registerBandPage) {
+                
+            } else {
+                location.reload();
+            }
         },
         error: function(data) {
             $('#registerAlert').show();

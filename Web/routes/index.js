@@ -16,4 +16,19 @@ router.get('/:username', async (req, res, next) => {
   });
 });
 
+
+router.get('/band/create', (req, res, next) => {
+  res.render('create-band', { 
+    authenticated: req.cookies["session"] != null,
+    dontDisplayAccountLinks: true
+  });
+});
+
+router.post('/band/create', (req, res, next) => {
+  let data = req.body;
+  bandService.create(data);
+
+  res.status(200);
+});
+
 module.exports = router;

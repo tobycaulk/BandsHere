@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BandsHere - Create Band</title>
+        <%- include('partials/head') %>
+    </head>
+    <body>
+        <%- include('partials/navbar') %>
+
+        <div class="container">
+            <div class="card" id="first-card">
+                <div class="card-body">
+                    <h1 class="card-title">Create Band</h1>
+                    <div class="pt-5 pt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <h3>Band Information</h3>
+                                <hr/>
+                                <label for="bandName">Band Name</label>
+                                <input type="text" id="bandName" class="form-control mb-4" placeholder="Band Name" required>
+                                <label for="about">About the Band</label>
+                                <textarea type="text" id="about" class="form-control mb-4" placeholder="About the band" rows="5" required></textarea>
+                                <h3 class="pt-3">Social Media Links</h3>
+                                <hr/>
+                                <label for="facebookUrl">Facebook Page Link</label>
+                                <input type="text" id="facebookUrl" class="form-control mb-4" placeholder="Facebook Link">
+                                <label for="instagramUsername">Instagram Username</label>
+                                <input type="text" id="instagramUsername" class="form-control mb-4" placeholder="Instagram Username">
+                                <label for="spotifyLink">Spotify Link</label>
+                                <input type="text" id="spotifyUrl" class="form-control mb-4" placeholder="Spotify Link">
+                                <label for="twitterUsername">Twitter Username</label>
+                                <input type="text" id="twitterUsername" class="form-control mb-4" placeholder="Twitter Username">
+                                <h3 class="pt-3">YouTube</h3>
+                                <hr/>
+                                <label for="youtubeVideoUrl">YouTube Video</label>
+                                <input type="text" id="youtubeVideoUrl" class="form-control mb-4" placeholder="YouTube Video Link">
+                                <button class="btn btn-primary" id="create-band">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('partials/scripts') %>
+        <script src="/javascripts/band-handler.js"></script>
+    </body>
+</html>

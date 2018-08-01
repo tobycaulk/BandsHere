@@ -1,42 +1,13 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.css" />
-
-	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-	<script src="/javascripts/config.js"></script>
+	<%- include('partials/head') %>
 
 	<title>BandsHere - <%= band.bandInfo.name %></title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-		<a class="navbar-brand" href="#">
-			<img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-			<span class="primary-highlight">BandsHere</span>
-		</a>
-		<ul class="navbar-nav ml-auto">
-			<% if(authenticated) { %>
-				<li class="nav-item">
-					<a class="nav-link btn btn-primary btn-empty" href="#"><i class="fas fa-heart"></i>&nbsp;Following</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link btn btn-primary btn-empty" id="signout">Sign Out</a>
-				</li>
-			<% } else { %>
-				<li class="nav-item">
-					<a class="nav-link btn btn-primary btn-empty" data-toggle="modal" data-target="#registerModal"><i class="fas fa-heart"></i>&nbsp;Sign Up</a>
-				</li>
-			<% } %>
-		</ul>
-	</nav>
+	
+	<%- include('partials/navbar') %>
 
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -150,10 +121,7 @@
 
 	<input id="band-username" value="<%= band.bandInfo.username %>" hidden />
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+	<%- include('partials/scripts') %>
 	<script charset="utf-8" src="https://widget.bandsintown.com/main.min.js"></script>
 	<script src="/javascripts/band-followers.js"></script>
 	<script src="/javascripts/user-handler.js"></script>
