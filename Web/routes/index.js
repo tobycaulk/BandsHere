@@ -35,4 +35,15 @@ router.post('/band/create', async (req, res, next) => {
   res.status(200);
 });
 
+router.get('/band/:band/followers', async (req, res, next) => {
+  try {
+    let followerCount = await bandService.getFollowerCount(req.params["band"]);
+    res.send({
+      followerCount: followerCount
+    });
+  } catch(err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

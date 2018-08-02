@@ -27,14 +27,23 @@ async function create(data, sessionId) {
 
         request.headers['session'] = sessionId;
         const res = await request.post('/band/', band);
-        console.log(res);
+        //FINISH
     } catch(err) {
-        console.log(err);
+        throw Error(err);
+    }
+}
+
+async function getFollowerCount(band) {
+    try {
+        const res = await request.get(`/band/${band}/followers`);
+        return res.body;
+    } catch(err) {
         throw Error(err);
     }
 }
 
 module.exports = {
     get: get,
-    create: create
+    create: create,
+    getFollowerCount: getFollowerCount
 }

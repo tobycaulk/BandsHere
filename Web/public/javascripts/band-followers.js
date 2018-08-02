@@ -9,9 +9,9 @@ function getBandUsername() {
 function retrieveFollowerCount(username) {
     $.ajax({
         method: 'GET',
-        url: baseUrl + '/band/' + username + '/followers',
+        url: '/band/' + username + '/followers',
         success: function(data) {
-            $('#follower-count').text(data);
+            $('#follower-count').text(data.followerCount);
         },
         error: function(data) {
         }
