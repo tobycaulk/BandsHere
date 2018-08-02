@@ -1,7 +1,6 @@
 package com.bandshere.service.user
 
 import com.bandshere.service.band.BandInfoRepository
-import com.bandshere.service.band.BandRepository
 import com.bandshere.service.common.EmailAlreadyRegisteredException
 import com.bandshere.service.common.InternalServerErrorException
 import com.bandshere.service.common.InvalidRequestException

@@ -1,5 +1,10 @@
 const cheerio = require('cheerio');
 const request = require('request-promise-native');
+const requestJson = require('request-json');
+const base64Img = require('base64-img');
+const fs = require('fs');
+
+const rjClient = requestJson.createClient('https://graph.facebook.com/');
 
 const facebookAboutPage = "about";
 const pageIdMetaProperty = "al:ios:url";
@@ -23,13 +28,20 @@ async function getPageIdFromVanityUrl(vanityUrl) {
 }
 
 async function getPageProfileImage(pageId) {
-    console.log(pageId);
-    try {
-        const res = await request(`https://graph.facebook.com/${pageId}/picture?type=large`);
-        console.log(res);
-    } catch(err) {
-        throw Error(err);
-    }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const profileImageRedirectRes = await rjClient.get(`${pageId}/picture?redirect=0&type=large`);
+            base64Img.requestBase64(profileImageRedirectRes.body.data.url, (err, res, body) => {
+                if(err) {
+                    reject(err);
+                }
+    
+                resolve(body.substring(23));
+            });
+        } catch(err) {
+            reject(err);
+        }
+    });
 }
 
 module.exports = {

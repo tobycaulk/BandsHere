@@ -32,21 +32,17 @@ function handleCreateBand() {
                 socialComponents: [
                     {
                         type: 'TWITTER',
-                        link: `twitter://user?screen_name=${twitterUsername}`
+                        link: `twitter:\/\/user?screen_name=${twitterUsername}`
                     },
                     {
                         type: 'INSTAGRAM',
-                        link: `instagram://user?username=${instagramUsername}`
+                        link: `instagram:\/\/user?username=${instagramUsername}`
                     },
                     {
                         type: 'SPOTIFY',
                         link: spotifyUrl
                     }
-                ],
-                name: name,
-                about: about,
-                facebookUrl: facebookUrl,
-                instagramUsername: instagramUsername,
+                ]
             }
         }),
         success: function(data) {

@@ -10,19 +10,26 @@ async function get(username) {
     }
 }
 
-async function create(data) {
+async function create(data, sessionId) {
     try {
-        console.log(data);
-        const band = data.band;
+        let band = data.band;
 
         const pageId = await facebookHelper.getPageIdFromVanityUrl(data.facebookUrl);
         band.socialComponents.push({
             type: 'FACEBOOK',
-            link: `fb://page/${pageId}`
-        })
+            link: `fb:\/\/page/${pageId}`
+        });
 
         const image = await facebookHelper.getPageProfileImage(pageId);
+        band.imageComponent = {
+            image: image
+        };
+
+        request.headers['session'] = sessionId;
+        const res = await request.post('/band/', band);
+        console.log(res);
     } catch(err) {
+        console.log(err);
         throw Error(err);
     }
 }

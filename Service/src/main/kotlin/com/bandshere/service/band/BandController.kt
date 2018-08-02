@@ -14,7 +14,7 @@ class BandController(private val bandService: BandService) {
     @SessionRequired
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody request: CreateBandRequest): Band? = bandService.create(request)
+    fun create(@Valid @RequestBody request: CreateBandRequest, @RequestHeader("session") sessionId: String): Band? = bandService.create(request, sessionId)
 
     @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.OK)
