@@ -14,7 +14,9 @@ function handleCreateBand() {
     $.ajax({
         method: 'POST',
         url: '/band/create',
-        data: {
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify({
             facebookUrl: facebookUrl,
             band: {
                 bandInfo: {
@@ -46,7 +48,7 @@ function handleCreateBand() {
                 facebookUrl: facebookUrl,
                 instagramUsername: instagramUsername,
             }
-        },
+        }),
         success: function(data) {
             console.log(data);
         }

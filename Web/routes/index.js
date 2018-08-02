@@ -24,9 +24,13 @@ router.get('/band/create', (req, res, next) => {
   });
 });
 
-router.post('/band/create', (req, res, next) => {
+router.post('/band/create', async (req, res, next) => {
   let data = req.body;
-  bandService.create(data);
+  try {
+    let res = bandService.create(data);
+  } catch(err) {
+    console.log(err);
+  } 
 
   res.status(200);
 });

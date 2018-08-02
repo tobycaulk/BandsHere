@@ -12,8 +12,16 @@ async function get(username) {
 
 async function create(data) {
     try {
+        console.log(data);
+        const band = data.band;
+
         const pageId = await facebookHelper.getPageIdFromVanityUrl(data.facebookUrl);
-        console.log(pageId);
+        band.socialComponents.push({
+            type: 'FACEBOOK',
+            link: `fb://page/${pageId}`
+        })
+
+        const image = await facebookHelper.getPageProfileImage(pageId);
     } catch(err) {
         throw Error(err);
     }
