@@ -27,7 +27,8 @@ async function create(data, sessionId) {
 
         request.headers['session'] = sessionId;
         const res = await request.post('/band/', band);
-        //FINISH
+
+        return res.body;
     } catch(err) {
         throw Error(err);
     }

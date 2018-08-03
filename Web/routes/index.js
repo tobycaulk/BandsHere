@@ -35,7 +35,8 @@ router.get('/band/create', async (req, res, next) => {
 router.post('/band/create', async (req, res, next) => {
   let data = req.body;
   try {
-    let res = bandService.create(data, req.cookies["session"]);
+    let bandCreateRes = await bandService.create(data, req.cookies["session"]);
+    res.send(bandCreateRes);
   } catch(err) {
     console.log(err);
   } 

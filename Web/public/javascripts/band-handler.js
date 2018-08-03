@@ -46,7 +46,11 @@ function handleCreateBand() {
             }
         }),
         success: function(data) {
-            console.log(data);
+            redirectToBandPage(data.bandInfo.username);
         }
     })
+}
+
+function redirectToBandPage(username) {
+    window.location.href = '/' + username;
 }
