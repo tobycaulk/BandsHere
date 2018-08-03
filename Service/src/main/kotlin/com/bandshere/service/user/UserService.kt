@@ -78,7 +78,7 @@ class UserService(
     }
 
     fun updateSessionModifiedDate(modifiedDate: Date, sessionId: String) {
-        var session = userSessionRepository.findOneBySessionId(sessionId)
+        val session = userSessionRepository.findOneBySessionId(sessionId)
         if(session != null) {
             session.modifiedDate = modifiedDate
             userSessionRepository.save(session)

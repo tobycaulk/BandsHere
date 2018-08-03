@@ -57,4 +57,7 @@ class UserController(private val userService: UserService) {
     @DeleteMapping("/session/{sessionId}")
     @ResponseStatus(HttpStatus.OK)
     fun signout(@PathVariable("sessionId") sessionId: String) = userService.signout(sessionId)
+
+    @GetMapping("/session/valid")
+    fun isSessionValid(@RequestHeader("session") sessionId: String) = userService.isValidSession(sessionId)
 }
