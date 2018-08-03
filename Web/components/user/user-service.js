@@ -79,10 +79,25 @@ async function isFollowingBand(sessionId, bandUsername) {
     }
 }
 
+async function isValidSession(sessionId) {
+    try {
+        request.headers["session"] = sessionId;
+        let res = await request.get('/user/session/valid');
+        if(res.body.status && res.body.status != 200) {
+            return { error: 'Uh-oh, something went wrong, please try again!' };
+        } else {
+            return res.body;
+        }
+    } catch(err) {
+        throw Error(err);
+    }
+}
+
 module.exports = {
     create: create,
     signout: signout,
     authenticate: authenticate,
     followBand: followBand,
-    isFollowingBand: isFollowingBand
+    isFollowingBand: isFollowingBand,
+    isValidSession: isValidSession
 };
